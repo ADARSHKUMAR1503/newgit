@@ -6,7 +6,7 @@ function Form() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const handelSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const collectionRef = collection(db, "posts");
 
@@ -19,16 +19,16 @@ function Form() {
   };
   return (
     <>
-      <div className="text-black flex align-middle justify-center">
+      <div className="text-black flex justify-center p-3">
         <form
-          className="flex flex-col p-3 w-[500px] place-content-center justify-center"
-          onSubmit={handelSubmit}
+          className="flex flex-col p-3 w-full max-w-md place-content-center justify-center"
+          onSubmit={handleSubmit}
         >
           <label className="p-2 text-white">
             Enter your name:
             <input
-              className="text-black caret-pink-500"
-              type="text "
+              className="text-black caret-pink-500 w-full p-2 mt-1 rounded"
+              type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -36,14 +36,14 @@ function Form() {
           <label className="p-2 text-white">
             Enter your email:
             <input
-              className="text-black caret-pink-500 "
-              type="text"
+              className="text-black caret-pink-500 w-full p-2 mt-1 rounded"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
-          <button className=" bg-cyan-600 mt-4 flex justify-center">
-            Save Changes
+          <button className="bg-cyan-600 mt-4 flex justify-center p-2 rounded text-white">
+            CREATE
           </button>
         </form>
       </div>
