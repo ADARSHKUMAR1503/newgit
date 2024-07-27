@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useNavigate } from "react-router-dom";
 import Logo from "../img/images.jpeg";
+import useAuthentication from "../hooks/useAuthentication";
 
 const loggedInUser = () => {
   return true;
@@ -14,6 +15,13 @@ const Title = () => (
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { logout } = useAuthentication();
+  const navigate = useNavigate();
+  const handelLogout = () => {
+    logout();
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center p-4">
@@ -51,7 +59,10 @@ const Header = () => {
                 <button
                   className="text-blue-100 text-sm h-12 w-full sm:w-16 bg-transparent border-solid border-2 border-sky-500 hover:bg-sky-700"
                   role="button"
-                  onClick={() => setIsLoggedIn(false)}
+                  onClick={() => {
+                    // setIsLoggedIn(false);
+                    handelLogout();
+                  }}
                 >
                   LogOut
                 </button>
