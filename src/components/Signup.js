@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthentication from "../hooks/useAuthentication";
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationError, setValidationError] = useState();
+  const { signup, error } = useAuthentication();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email) {
@@ -19,10 +21,11 @@ function Signup() {
       return;
     }
     setValidationError(null);
-    console.log({ name, email, password });
+    console.log("details", { name, email, password });
+    signup({ name, email, password });
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen ">
       <form
         className="bg-white p-6 rounded shadow-md w-full max-w-md text-black"
         onSubmit={handleSubmit}
@@ -58,6 +61,12 @@ function Signup() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        {error && (
+          <div className="text-red-500 mb-4" role="alert">
+            {error}
+          </div>
+        )}
+
         <button
           className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200"
           type="submit"

@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthentication from "../hooks/useAuthentication";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { login, error } = useAuthentication();
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission
     console.log({ email, password });
+    login({ email, password });
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+    <div className="flex justify-center items-center min-h-screen  p-4">
       <form
         className="bg-white p-6 rounded shadow-md w-full max-w-md text-black"
         onSubmit={handleSubmit}
@@ -38,12 +40,19 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200"
-          type="submit"
-        >
-          Login
-        </button>
+        {error && (
+          <div className="text-red-500 mb-4" role="alert">
+            {error}
+          </div>
+        )}
+        <Link to="/">
+          <button
+            className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200"
+            type="submit"
+          >
+            Login
+          </button>
+        </Link>
       </form>
     </div>
   );
